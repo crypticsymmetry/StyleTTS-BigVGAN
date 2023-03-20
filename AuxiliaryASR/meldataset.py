@@ -135,12 +135,12 @@ class MelDataset(torch.utils.data.Dataset):
         data_list = [
             (data[0], data[4], data[1])
             for data in data
-            if (
-                self.max_sql_len
-                > (Path(data[0]).stat().st_size // 2)
-                > self.min_seq_len
-                and len(data[4]) > 5
-            )
+            #if (
+                #self.max_sql_len
+                #> (Path(data[0]).stat().st_size // 2)
+                #> self.min_seq_len
+                #and len(data[4]) > 5
+            
         ]
         print("data_list length: ", len(data))
         print("filtered data_list length: ", len(data_list))

@@ -1,11 +1,11 @@
 log_dir: "Checkpoint_GameTTS"
-save_freq: 5
+save_freq: 2
 device: "cuda"
 epochs: 150
-batch_size: 64
+batch_size: 32
 pretrained_model: ""
-train_data: "Data/ASR_Train_data_test.txt"
-val_data: "Data/ASR_Val_data.txt"
+train_data: "Data/ASR_Train_data_test_kaggle.txt"
+val_data: "Data/ASR_Val_data_kaggle.txt"
 
 preprocess_parasm:
   sr: 22050

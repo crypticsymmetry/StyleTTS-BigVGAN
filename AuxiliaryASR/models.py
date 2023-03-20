@@ -4,7 +4,7 @@ from torch import nn
 from torch.nn import TransformerEncoder
 import torch.nn.functional as F
 from layers import MFCC, Attention, LinearNorm, ConvNorm, ConvBlock
-
+import bitsandbytes as bnb
 
 def build_model(model_params={}, model_type="asr"):
     model = ASRCNN(**model_params)
@@ -103,7 +103,7 @@ class ASRS2S(nn.Module):
         n_token=40,
     ):
         super(ASRS2S, self).__init__()
-        self.embedding = nn.Embedding(n_token, embedding_dim)
+        self.embedding = bnb.nn.Embedding(n_token, embedding_dim)
         val_range = math.sqrt(6 / hidden_dim)
         self.embedding.weight.data.uniform_(-val_range, val_range)
 

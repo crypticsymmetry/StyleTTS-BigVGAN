@@ -7,7 +7,7 @@ from torch import nn
 from torch.optim import Optimizer
 from functools import reduce
 from torch.optim import AdamW
-
+import bitsandbytes as bnb
 
 class MultiOptimizer:
     def __init__(self, optimizers={}, schedulers={}):
@@ -56,14 +56,25 @@ def build_optimizer(parameters):
 def _define_optimizer(params):
     optimizer_params = params["optimizer_params"]
     sch_params = params["scheduler_params"]
-    optimizer = AdamW(
+    
+    # Comment out existing optimizer
+    # optimizer = AdamW(
+    #     params["params"],
+    #     lr=optimizer_params.get("lr", 1e-4),
+    #     weight_decay=optimizer_params.get("weight_decay", 5e-4),
+    #     betas=(0.9, 0.98),
+    #     eps=1e-9,
+    # )
+
+    # Add 8-bit optimizer of your choice
+    optimizer = bnb.optim.AdamW8bit(
         params["params"],
         lr=optimizer_params.get("lr", 1e-4),
         weight_decay=optimizer_params.get("weight_decay", 5e-4),
         betas=(0.9, 0.98),
         eps=1e-9,
     )
-    # optimizer = AdamW(params["params"], 5e-4, betas=[0.8, 0.99], eps=1e-9)
+
     scheduler = _define_scheduler(optimizer, sch_params)
     return optimizer, scheduler
 
@@ -90,7 +101,7 @@ def build_multi_optimizer(parameters_dict, scheduler_params):
         [
             (
                 key,
-                AdamW(params, lr=1e-4, weight_decay=1e-6, betas=(0.9, 0.98), eps=1e-9),
+                bnb.optim.AdamW8bit(params, lr=1e-4, weight_decay=1e-6, betas=(0.9, 0.98), eps=1e-9),
             )
             for key, params in parameters_dict.items()
         ]

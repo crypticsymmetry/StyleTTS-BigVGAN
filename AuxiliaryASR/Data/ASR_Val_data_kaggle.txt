@@ -2274,4 +2274,3 @@
 /kaggle/input/libritts-full/LibriTTS/train-other-500/976/131095/976_131095_000003_000010.wav|With a hay band tied round him, one would think he had just come from turning over the grass.|5262
 /kaggle/input/libritts-full/LibriTTS/train-other-500/978/125137/978_125137_000002_000005.wav|What is in such wise true of the public master and servant, is equally true of the private master and servant all the world over.|5265
 /kaggle/input/libritts-full/LibriTTS/train-other-500/982/133222/982_133222_000002_000004.wav|General organic sensations of well being or discomfiture are felt from the first, but pain and pleasure as mental states are not noted till at or near the second month.|5267
-/kaggle/input/libritts-full/

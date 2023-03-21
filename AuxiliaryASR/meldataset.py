@@ -122,7 +122,7 @@ def mel_spectrogram(
 
 class MelDataset(torch.utils.data.Dataset):
     def __init__(self, data_list, dict_path=DEFAULT_DICT_PATH, sr=22050):
-         _data_list = [l[:-1].split("|") for l in data_list]
+        _data_list = [l[:-1].split("|") for l in data_list]
 
         self.min_seq_len = int(0.6 * 22050)
         self.max_sql_len = int(10.0 * 22050)

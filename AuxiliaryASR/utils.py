@@ -44,11 +44,15 @@ def build_criterion(critic_params={}):
 
 
 def get_data_path_list(train_path=None, val_path=None):
-    with open(train_path, "r") as f:
-        train_list = f.readlines()
+    train_list = []
+    val_list = []
+    if train_path:
+        with open(train_path, "r") as f:
+            train_list.extend(f.readlines())
 
-    with open(val_path, "r") as f:
-        val_list = f.readlines()
+    if val_path:
+        with open(val_path, "r") as f:
+            val_list.extend(f.readlines())
 
     return train_list, val_list
 

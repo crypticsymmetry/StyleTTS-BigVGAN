@@ -128,7 +128,7 @@ class MelDataset(torch.utils.data.Dataset):
         self.max_sql_len = int(10.0 * 22050)
         self.text_cleaner = TextCleaner(dict_path)
         self.sr = sr
-		self.data_list = self._data_list
+        self.data_list = self._data_list
     def __len__(self):
         return len(self.data_list)
 

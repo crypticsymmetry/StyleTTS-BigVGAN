@@ -131,20 +131,29 @@ class MelDataset(torch.utils.data.Dataset):
 
         self.data_list = self._filter(_data_list)
 
-    def _filter(self, data):
-        data_list = [
-            (data[0], data[4], data[1])
-            for data in data
-            if (
-                self.max_sql_len
-                > (Path(data[0]).stat().st_size // 2)
-                > self.min_seq_len
-                and len(data[4]) > 5
-            )
-        ]
-        print("data_list length: ", len(data))
-        print("filtered data_list length: ", len(data_list))
-        return data_list
+    def _filter(self, data_list): 
+      filtered_data_list = []
+      for data in data_list:
+          # Split the data by the '|' delimiter
+          data_parts = data.split('|')
+          if len(data_parts) < 3:
+              continue
+          # Extract the transcript and convert it to lowercase
+          transcript = data_parts[1].strip().lower()
+          # Check if the transcript is empty or too short
+          if len(transcript) < self.min_text_len:
+              continue
+          # Extract the path to the audio file
+          audio_path = data_parts[0]
+          # Check if the audio file exists
+          if not os.path.exists(audio_path):
+              continue
+          # Extract the speaker ID
+          speaker_id = data_parts[2].strip()
+          # Append the filtered data to the list
+          filtered_data_list.append((audio_path, transcript, speaker_id))
+      return data_list
+
 		
     def __len__(self):
         return len(self.data_list)
